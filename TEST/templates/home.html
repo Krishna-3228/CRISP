@@ -11,19 +11,15 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
         .gradient-bg {
             background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
         }
-        
         .card-hover {
             transition: transform 0.2s ease-in-out;
         }
-        
         .card-hover:hover {
             transform: translateY(-5px);
         }
-
         .box {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -31,18 +27,31 @@
             margin-bottom: 1rem;
             border-radius: 0.5rem;
         }
-
         .flex-container {
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
         }
-
         .flex-item {
             flex: 1;
             min-width: 45%;
         }
+        .hidden {
+            display: none;
+        }
     </style>
+    <script>
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+        }
+
+        // Set default tab
+        document.addEventListener('DOMContentLoaded', function() {
+            showTab('recent-requests');
+        });
+    </script>
 </head>
 <body class="min-h-screen bg-black text-white">
     <!-- Navbar -->
@@ -54,9 +63,12 @@
                         <span class="text-2xl font-bold text-blue-400">CRISP</span>
                     </div>
                 </div>
-                <div class="hidden md:block">
+                <div class="block">
                     <div class="ml-10 flex items-center space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md font-medium">Recent</a>
+                        <!-- Links for switching tabs -->
+                        <a href="javascript:void(0);" class="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md font-medium" onclick="showTab('recent-requests')">Recent Requests</a>
+                        <a href="javascript:void(0);" class="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md font-medium" onclick="showTab('interceptor')">Interceptor</a>
+                        <a href="javascript:void(0);" class="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md font-medium" onclick="showTab('repeater')">Repeater</a>
                     </div>
                 </div>
             </div>
@@ -65,23 +77,37 @@
 
     <!-- Main Content -->
     <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h1 class="text-4xl font-bold text-gray-100 mb-8">Recent Requests</h1>
-        
-        <!-- Request Cards -->
-        <section>
-            {% for entry in entries %}
-                <article class="entry flex-container">
-                    <div class="box flex-item">
-                        <h2 class="entry__title">Request</h2>
-                        <p class="entry__content"><pre style="overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; font-size: 15px;">{{entry[1]}}</pre></p>
-                    </div>
-                    <div class="box flex-item">
-                        <h2 class="entry__title">Response</h2>
-                        <p class="entry__content"><pre style="overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; font-size: 15px;">{{entry[2]}}</pre></p>
-                    </div>
-                </article>
-            {% endfor %}
-        </section>
+        <!-- Recent Requests Tab -->
+        <div id="recent-requests" class="tab-content hidden">
+            <h1 class="text-4xl font-bold text-gray-100 mb-8">Recent Requests</h1>
+            <!-- Request Cards -->
+            <section>
+                {% for entry in entries %}
+                    <article class="entry flex-container">
+                        <div class="box flex-item">
+                            <h2 class="entry__title">Request</h2>
+                            <p class="entry__content"><pre style="overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; font-size: 15px;">{{entry[1]}}</pre></p>
+                        </div>
+                        <div class="box flex-item">
+                            <h2 class="entry__title">Response</h2>
+                            <p class="entry__content"><pre style="overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; font-size: 15px;">{{entry[2]}}</pre></p>
+                        </div>
+                    </article>
+                {% endfor %}
+            </section>
+        </div>
+
+        <!-- Interceptor Tab -->
+        <div id="interceptor" class="tab-content hidden">
+            <h1 class="text-4xl font-bold text-gray-100 mb-8">Interceptor</h1>
+            <p>This is the content for the Interceptor tab.</p>
+        </div>
+
+        <!-- Repeater Tab -->
+        <div id="repeater" class="tab-content hidden">
+            <h1 class="text-4xl font-bold text-gray-100 mb-8">Repeater</h1>
+            <p>This is the content for the Repeater tab.</p>
+        </div>
     </main>
 
     <!-- Footer -->
