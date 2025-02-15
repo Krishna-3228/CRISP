@@ -80,6 +80,12 @@
         <!-- Recent Requests Tab -->
         <div id="recent-requests" class="tab-content hidden">
             <h1 class="text-4xl font-bold text-gray-100 mb-8">Recent Requests</h1>
+            <!-- Button to drop all requests -->
+            <form action="/dropallrequests" method="post">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Drop All Requests
+                </button>
+            </form>
             <!-- Request Cards -->
             <section>
                 {% for entry in entries %}
