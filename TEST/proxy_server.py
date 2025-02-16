@@ -35,7 +35,7 @@ def handle_client_request(client_socket):
     destination_socket.connect((host, port))
     destination_socket.sendall(request)
     print("Received response:\n")
-    response = bytes()
+    response = b''
     destination_socket.settimeout(10.0)
     while True:
         try:
